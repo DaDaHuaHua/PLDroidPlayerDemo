@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -20,6 +21,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.PLNetworkManager;
 import com.pili.pldroid.playerdemo.utils.GetPathFromUri;
+import com.pili.pldroid.playerdemo.utils.PermissionChecker;
 
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -28,12 +30,10 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-//    private static final String DEFAULT_TEST_URL = "http://vod.live.zm518.cn/recordings/z1.gaiay.59e6f12da3d5ec325b52e33c/1508307257.1508307287.m3u8";
-    //MP3
-    private static final String DEFAULT_TEST_URL = "http://vod.live.zm518.cn/live/user/video/1508407936830/1508407936830.m3u8";
+    private static final String DEFAULT_TEST_URL = "rtmp://live.hkstv.hk.lxdns.com/live/hks";
 
     private static final String[] DEFAULT_PLAYBACK_DOMAIN_ARRAY = {
-            "pili-media.live.zm.gaiay.cn","vod.live.zm518.cn"
+            "live.hkstv.hk.lxdns.com",
     };
 
     private Spinner mActivitySpinner;
@@ -82,12 +82,30 @@ public class MainActivity extends AppCompatActivity {
         mLoopCheckBox = (CheckBox) findViewById(R.id.LoopCheckBox);
         mVideoDataCallback = (CheckBox) findViewById(R.id.VideoCallback);
         mAudioDataCallback = (CheckBox) findViewById(R.id.AudioCallback);
+
+        mVideoCacheCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!isPermissionOK()) {
+                    mVideoCacheCheckBox.setChecked(false);
+                }
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         PLNetworkManager.getInstance().stopDnsCacheService(this);
+    }
+
+    public boolean isPermissionOK() {
+        PermissionChecker checker = new PermissionChecker(this);
+        boolean isPermissionOK = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checker.checkPermission();
+        if (!isPermissionOK) {
+            Toast.makeText(this, "Some permissions is not approved !!!", Toast.LENGTH_SHORT).show();
+        }
+        return isPermissionOK;
     }
 
     public void onClickLocalFile(View v) {

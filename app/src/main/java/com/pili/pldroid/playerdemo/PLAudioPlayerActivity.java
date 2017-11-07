@@ -17,7 +17,7 @@ import com.pili.pldroid.player.PLMediaPlayer;
 import java.io.IOException;
 
 /**
- * This demo shows how to use PLMediaPlayer API playing audio stream
+ *  This demo shows how to use PLMediaPlayer API playing audio stream
  */
 public class PLAudioPlayerActivity extends AppCompatActivity {
 
@@ -167,12 +167,12 @@ public class PLAudioPlayerActivity extends AppCompatActivity {
     };
 
     /**
-     * Listen the event of playing complete
-     * For playing local file, it's called when reading the file EOF
-     * For playing network stream, it's called when the buffered bytes played over
-     * <p>
-     * If setLooping(true) is called, the player will restart automatically
-     * And ｀onCompletion｀ will not be called
+     *  Listen the event of playing complete
+     *  For playing local file, it's called when reading the file EOF
+     *  For playing network stream, it's called when the buffered bytes played over
+     *
+     *  If setLooping(true) is called, the player will restart automatically
+     *  And ｀onCompletion｀ will not be called
      */
     private PLMediaPlayer.OnCompletionListener mOnCompletionListener = new PLMediaPlayer.OnCompletionListener() {
         @Override
@@ -267,10 +267,5 @@ public class PLAudioPlayerActivity extends AppCompatActivity {
                 mToast.show();
             }
         });
-    }
-
-    public void seekTo240(View v) {
-        //  mMediaPlayer.seekTo(240000);
-        Log.i("isPlaying", mMediaPlayer.isPlaying() + "");
     }
 }

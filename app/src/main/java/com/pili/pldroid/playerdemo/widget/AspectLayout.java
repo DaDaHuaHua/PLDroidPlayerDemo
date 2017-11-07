@@ -49,7 +49,7 @@ public class AspectLayout extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Log.d(TAG, "onMeasure" + " width=[" + MeasureSpec.toString(widthMeasureSpec) +
-                "] height=[" + View.MeasureSpec.toString(heightMeasureSpec) + "]");
+                "] height=[" + MeasureSpec.toString(heightMeasureSpec) + "]");
 
         Rect r = new Rect();
         getWindowVisibleDisplayFrame(r);
