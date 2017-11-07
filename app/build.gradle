@@ -27,7 +27,6 @@ android {
 }
 
 dependencies {
-    compile files('libs/pldroid-player-2.0.1.jar')
     compile 'com.android.support:appcompat-v7:22+'
     compile 'com.qiniu:happy-dns:0.2.+'
     compile 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
